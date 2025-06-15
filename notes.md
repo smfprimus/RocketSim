@@ -1,4 +1,4 @@
-# Notitzen
+# Notizen
 
 **Obkektorientiert:** Arbeiten mit Klassen statt nur mit Funnktionen
 **self:**
