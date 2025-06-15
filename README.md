@@ -37,7 +37,7 @@ import numpy as np            # Numerische Berechnungen
 import math                   # Mathematische Funktionen
 ```
 
-## 3. Programmarchitektur
+## 3. Programmaufbau
 
 ### 3.1 Klassenstruktur
 Das Programm ist objektorientiert aufgebaut mit einer Hauptklasse:
