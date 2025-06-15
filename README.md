@@ -25,9 +25,8 @@ Der Raketen-Simulator ist eine Python-Anwendung zur Berechnung von Raketenparame
 ## 2. Technische Spezifikationen
 
 ### 2.1 Systemanforderungen
+- **Programmiersprache:** Python
 - **Python Version:** 3.6 oder höher
-- **Betriebssystem:** Windows, macOS, Linux
-- **RAM:** Mindestens 512 MB
 
 ### 2.2 Abhängigkeiten
 ```python
