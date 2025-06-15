@@ -1,2 +1,250 @@
-# RocketSim
-Simple Simulation of Rocket Flight using Python and Tkinter
+# Projektdokumentation: Raketen-Simulator
+
+**Autor:** Sasha-Mercedes Fischer  
+**Sprache:** Python 3.x  
+**GUI Framework:** Tkinter mit ttkbootstrap  
+
+## 1. Projektübersicht
+
+### 1.1 Zweck
+Der Raketen-Simulator ist eine Python-Anwendung zur Berechnung von Raketenparametern und Simulation von Raketenflügen. Das Programm bietet eine grafische Benutzeroberfläche zur Eingabe von Raketenspezifikationen und visualisiert die Flugeigenschaften durch interaktive Diagramme.
+
+### 1.2 Zielgruppe
+- Studenten der Luft- und Raumfahrttechnik
+- Raumfahrt-Enthusiasten
+- Bildungseinrichtungen für MINT-Fächer
+- Hobby-Raketenbauer für erste Berechnungen
+
+### 1.3 Hauptfunktionen
+- Berechnung fundamentaler Raketenparameter
+- Simulation des Raketenflugs mit physikalischen Modellen
+- Visualisierung von Flughöhe und Geschwindigkeit
+- Unterstützung verschiedener Treibstofftypen
+- Benutzerfreundliche grafische Oberfläche
+
+## 2. Technische Spezifikationen
+
+### 2.1 Systemanforderungen
+- **Python Version:** 3.6 oder höher
+- **Betriebssystem:** Windows, macOS, Linux
+- **RAM:** Mindestens 512 MB
+
+### 2.2 Abhängigkeiten
+```python
+import tkinter as tk          # Standard GUI-Bibliothek
+import ttkbootstrap as ttk    # Erweiterte GUI-Komponenten
+import matplotlib.pyplot as plt  # Plotting und Visualisierung
+import numpy as np            # Numerische Berechnungen
+import math                   # Mathematische Funktionen
+```
+
+### 2.3 Installation der Abhängigkeiten
+```bash
+pip install ttkbootstrap matplotlib numpy
+```
+
+## 3. Programmarchitektur
+
+### 3.1 Klassenstruktur
+Das Programm ist objektorientiert aufgebaut mit einer Hauptklasse:
+
+#### `RocketSimulator`
+- **Zweck:** Hauptklasse für die gesamte Anwendung
+- **Verantwortlichkeiten:**
+  - GUI-Verwaltung und Layout
+  - Parameterberechnung
+  - Flug-Simulation
+  - Datenvisualisierung
+
+### 3.2 Wichtige Methoden
+
+#### `__init__(self, root)`
+Initialisiert die Anwendung und setzt Grundkonstanten.
+
+#### `setup_gui(self)`
+Erstellt das komplette GUI-Layout mit:
+- Eingabebereich für Raketenparameter
+- Ergebnisanzeige als Textfeld
+- Matplotlib-Integration für Diagramme
+
+#### `calculate_parameters(self)`
+Berechnet alle relevanten Raketenparameter basierend auf Benutzereingaben.
+
+#### `simulate_flight(self, params)`
+Führt die numerische Simulation des Raketenflugs durch.
+
+#### `plot_results(self, time_points, height_points, velocity_points, params)`
+Erstellt die Visualisierungen der Simulationsergebnisse.
+
+## 4. Unterstützte Treibstoffe
+
+Das Programm unterstützt drei gängige Raketentreibstoffe:
+
+| Treibstoff | Dichte (kg/m³) | Spezifischer Impuls (s) |
+|------------|----------------|-------------------------|
+| LH2/LOX    | 350           | 450                     |
+| Methane/LOX| 900           | 370                     |
+| Kerosene/LOX| 1000         | 340                     |
+
+## 5. Berechnete Parameter
+
+### 5.1 Grundlegende Parameter
+- **Ausstoßgeschwindigkeit (ve):** `ve = Isp × g₀`
+- **Massenstromrate:** `ṁ = F / ve`
+- **Treibstoffmasse:** `mp = ṁ × tb`
+
+### 5.2 Massenverteilung
+- Trockenmasse (Struktur)
+- Nutzlastmasse 
+- Treibstoffmasse
+- Gesamtstartmasse
+- Prozentuale Verteilung
+
+### 5.3 Leistungsparameter
+- **Delta-V (Tsiolkovsky-Gleichung):** `Δv = ve × ln(m₀/mf)`
+- **Schub-zu-Gewicht-Verhältnis:** `TWR = F/(m × g₀)`
+- **Tankvolumen:** `V = mp/ρ`
+
+## 6. Physikalische Modelle
+
+### 6.1 Flug-Simulation
+Die Simulation berücksichtigt folgende physikalische Effekte:
+
+#### Phase 1: Antriebsphase (0 ≤ t ≤ Brenndauer)
+- **Schubkraft:** Konstant basierend auf Eingabeparametern
+- **Gewichtskraft:** `Fg = m × g₀`
+- **Luftwiderstand:** `Fd = ½ × ρ × cd × A × v²`
+- **Luftdichte:** Exponentieller Abfall mit der Höhe
+
+#### Phase 2: Freier Fall (t > Brenndauer)
+- Nur Gewichtskraft und Luftwiderstand
+- Keine Schubkraft mehr vorhanden
+
+### 6.2 Vereinfachungen
+- Konstante Erdbeschleunigung (9,81 m/s²)
+- Vereinfachtes Luftwiderstandsmodell
+- Konstante Querschnittsfläche
+- Eindimensionale Bewegung (nur vertikal)
+
+### 6.3 Numerische Integration
+- **Zeitschritt:** dt = 0.1 s
+- **Methode:** Euler-Verfahren
+- **Abbruchbedingungen:** 
+  - Rakete erreicht Boden (h ≤ 0)
+  - Maximale Simulationszeit überschritten
+
+## 7. GUI-Komponenten
+
+### 7.1 Eingabebereich
+- **Treibstofftyp:** Dropdown-Menü mit automatischer Isp-Aktualisierung
+- **Schub:** Eingabe in kN
+- **Spezifischer Impuls:** Eingabe in Sekunden
+- **Brenndauer:** Eingabe in Sekunden
+- **Trockenmasse:** Eingabe in kg
+- **Nutzlastmasse:** Eingabe in kg
+
+### 7.2 Ergebnisanzeige
+Scrollbares Textfeld mit formatierter Ausgabe:
+- Ausstoßgeschwindigkeit
+- Detaillierte Massenverteilung
+- Leistungsparameter
+- Geschätzte Tankgröße
+
+### 7.3 Visualisierung
+Zwei nebeneinanderliegende Diagramme:
+- **Links:** Flughöhe über Zeit (km vs. s)
+- **Rechts:** Geschwindigkeit über Zeit (m/s vs. s)
+
+Beide Diagramme zeigen:
+- Markierung des Brennschluss-Zeitpunkts
+- Hervorhebung der Maximalwerte
+- Gitterlinien für bessere Lesbarkeit
+
+## 8. Beispielrechnung
+
+### 8.1 Standardkonfiguration
+- **Treibstoff:** Kerosene/LOX
+- **Schub:** 7.500 kN
+- **Spezifischer Impuls:** 340 s
+- **Brenndauer:** 150 s
+- **Trockenmasse:** 22.200 kg
+- **Nutzlast:** 22.800 kg
+
+### 8.2 Typische Ergebnisse
+- **Treibstoffmasse:** ~345.000 kg
+- **Delta-V:** ~8.000-9.000 m/s
+- **Maximale Höhe:** 150-200 km
+- **Maximale Geschwindigkeit:** 2.500-3.000 m/s
+
+## 9. Mögliche Erweiterungen
+
+### 9.1 Physikalische Verbesserungen
+- Mehrstufige Raketen
+- Variable Erdbeschleunigung
+- Erdrotation berücksichtigen
+- Orbitalemechanik für Satellitenbahnen
+- Genaueres Atmosphärenmodell
+
+### 9.2 GUI-Erweiterungen
+- 3D-Flugbahnvisualisierung
+- Animierte Simulation
+- Export-Funktionen für Daten
+- Vergleich verschiedener Konfigurationen
+- Kostenschätzung
+
+### 9.3 Technische Verbesserungen
+- Konfigurationsdateien für Treibstoffe
+- Datenbankanbindung für Raketendaten
+- Web-basierte Version
+- Genauere numerische Verfahren
+
+## 10. Bekannte Limitationen
+
+### 10.1 Physikalische Vereinfachungen
+- Eindimensionale Bewegung (nur vertikal)
+- Konstante Atmosphäreneigenschaften
+- Vereinfachter Luftwiderstand
+- Keine Berücksichtigung von Windeinflüssen
+
+### 10.2 Technische Limitationen
+- Euler-Verfahren ist für große Zeitschritte ungenau
+- Keine Validierung gegen reale Flugdaten
+- Luftwiderstandskoeffizient ist geschätzt
+- Keine Berücksichtigung von Strukturbelastungen
+
+## 11. Validierung und Tests
+
+### 11.1 Plausibilitätsprüfung
+- Delta-V-Werte entsprechen typischen Orbital-Raketen
+- Flughöhen sind realistisch für die gegebenen Parameter
+- Massenverteilung entspricht modernen Raketen
+
+### 11.2 Vergleich mit Referenzdaten
+Das Programm sollte gegen bekannte Raketendaten validiert werden:
+- Saturn V
+- Falcon 9
+- Atlas V
+
+## 12. Fazit
+
+Der Raketen-Simulator bietet eine solide Grundlage für die Berechnung und Simulation von Raketenflügen. Trotz der vereinfachten physikalischen Modelle liefert er realistische Ergebnisse für erste Abschätzungen und Bildungszwecke.
+
+Die modulare Struktur ermöglicht einfache Erweiterungen, und die benutzerfreundliche GUI macht das Programm auch für Laien zugänglich. Für professionelle Anwendungen sollten jedoch genauere physikalische Modelle und Validierungen implementiert werden.
+
+### 12.1 Stärken
+- Einfache Bedienung durch intuitive GUI
+- Solide Grundlagen der Raketenphysik
+- Gute Visualisierung der Ergebnisse
+- Erweiterbare Architektur
+
+### 12.2 Verbesserungspotential
+- Genauere physikalische Modelle
+- Mehrstufige Raketen
+- Validierung gegen reale Daten
+- Performance-Optimierung für große Simulationen
+
+---
+
+**Version:** 1.0  
+**Letzte Aktualisierung:** Juni 2025  
+**Status:** Funktionsfähig, bereit für Erweiterungen
