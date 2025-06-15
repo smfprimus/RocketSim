@@ -37,11 +37,6 @@ import numpy as np            # Numerische Berechnungen
 import math                   # Mathematische Funktionen
 ```
 
-### 2.3 Installation der Abhängigkeiten
-```bash
-pip install ttkbootstrap matplotlib numpy
-```
-
 ## 3. Programmarchitektur
 
 ### 3.1 Klassenstruktur
