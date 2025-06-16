@@ -6,49 +6,58 @@
 
 ## 1. Projektübersicht
 
-### 1.1 Zweck
-Der Raketen-Simulator ist eine Python-Anwendung zur Berechnung von Raketenparametern und Simulation von Raketenflügen. Das Programm bietet eine grafische Benutzeroberfläche zur Eingabe von Raketenspezifikationen und visualisiert die Flugeigenschaften durch interaktive Diagramme.
+Der Raketen-Simulator ist eine Python-Anwendung zur Berechnung und Simulation von Raketenflügen. Das Programm hat eine grafische Benutzeroberfläche zur Eingabe der Raketenparameter und stellt die Flugeigenschaften durch Diagramme dar.
 
-### 1.2 Zielgruppe
-- Studenten der Luft- und Raumfahrttechnik
-- Raumfahrt-Enthusiasten
-- Bildungseinrichtungen für MINT-Fächer
-- Hobby-Raketenbauer für erste Berechnungen
+### Wen spricht dieses Programm an?
+Ähnliche Programme werden auch in der Raumfahrt verwendet, um Rakentestarts zu simulieren. Dieser Raketensimulator ist zwar nur sehr einfach, könnte aber für Hobby-Raketenbauer oder Raumfahrt-Interessierte nützlich sein.
 
-### 1.3 Hauptfunktionen
-- Berechnung fundamentaler Raketenparameter
-- Simulation des Raketenflugs mit physikalischen Modellen
+### Hauptfunktionen 
+- Eingabe der wichtigsten Raketenparameter (verwendeter Treibstoff, Schub, Spezifischer Impuls, Brenndauer, Trockenmasse, Nutzlast)
+- Berechnung der restlichen benötigten Raketenparameter (Massefluss, Treibstoffmasse, Gesamtmasse)
+- Simulation des Raketenflugs mit einem einfachen physikalischen Modell
 - Visualisierung von Flughöhe und Geschwindigkeit
 - Unterstützung verschiedener Treibstofftypen
 - Benutzerfreundliche grafische Oberfläche
 
 ## 2. Technische Spezifikationen
 
-### 2.1 Systemanforderungen
+### Systemanforderungen
 - **Programmiersprache:** Python
 - **Python Version:** 3.6 oder höher
 
-### 2.2 Abhängigkeiten
+### Benötigte Libraries
+Die physikalischen Berechnungen und das grafische Interface wurden mit Hilfe einiger Libraries umgesetzt. Diese müssen vor dem Start des Programms installiert werden.
 ```python
-import tkinter as tk          # Standard GUI-Bibliothek
-import ttkbootstrap as ttk    # Erweiterte GUI-Komponenten
+import tkinter as tk             # Standard GUI-Bibliothek
+import ttkbootstrap as ttk       # Erweiterte GUI-Komponenten
 import matplotlib.pyplot as plt  # Plotting und Visualisierung
-import numpy as np            # Numerische Berechnungen
-import math                   # Mathematische Funktionen
+import numpy as np               # Numerische Berechnungen
+import math                      # Mathematische Funktionen
 ```
 
-## 3. Programmaufbau
+## Programmaufbau
 
-### 3.1 Klassenstruktur
-Das Programm ist objektorientiert aufgebaut mit einer Hauptklasse:
+### Objektorierntierter Aufbau
 
-#### `RocketSimulator`
-- **Zweck:** Hauptklasse für die gesamte Anwendung
-- **Verantwortlichkeiten:**
-  - GUI-Verwaltung und Layout
-  - Parameterberechnung
-  - Flug-Simulation
-  - Datenvisualisierung
+Ich habe mich bei diesem Programm für eine objektorientierte Herangehensweise entschieden. Das macht den Code übersichtlicher und besser strukturiert. Außerdem ist er so auch einfacher später zu erweitern.
+
+**Objektorientiert:** Arbeiten mit Klassen statt nur mit Funnktionen.
+
+Wichtigster Programmteil ist die Hauptklasse, die alle Funktionen beinhaltet:
+
+```python
+class RocketSimulator
+```
+In der Klasse ```RocketSimulator```gibt es mehrere Funktionen (Die nennt man hier **Methoden**).
+
+Die erste Methode ist immer ```__init__```. Diese Methode nennt man auch den *Constructor*.
+```python
+def __init__(self, root):
+```
+Diese Methode wird immer dann ausgeführt, wenn eine neue **Instanz** der Klasse Rocket Simulator erzeugt wird. **Methoden** haben bei den Parametern eine Besonderheit: Als erster Parameter wird immer ```self``` übergeben. Diese Variable enthält die **Instanz** des Objektes. Das funktioniert ganz automatisch.
+
+In der Funktion ```__init__``` wird ein weiterer Parameter übergeben: ```root```. Dabei handelt es sich um das Tkinter Objekt, das in der ersten Zeile der ```__init__```-Funktion mit der Instanz verbunden wird ( ```self.root = root``` ). Dadurch können alle Parameter der Benutzeroberfläche als Variablen der Instanz bearbeitet werden und müssen nicht mühsam von Funktion zu Funktion weitergegeben werden. Als letztes startet ```__init__``` die grafische Benutzeroberfläche mit der tkinter-Funktion ```setup_gui()```.
+
 
 ### 3.2 Wichtige Methoden
 
