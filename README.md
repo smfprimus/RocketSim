@@ -78,25 +78,26 @@ zum Schluss werden noch die Grafiken im unteren tkinter-Frame vorbereitet (wie d
 Berechnet alle relevanten Raketenparameter basierend auf Benutzereingaben.
 
 #### ```simulate_flight(self, params)```
-Führt die numerische Simulation des Raketenflugs durch.
+Führt die numerische Simulation des Raketenflugs durch. Numerisch bedeutet hier, dass ich das schrittweite berechne - also immer für die nächsten 0.1 Sekunden. Das ist nicht ganz so präzise, wie eine direkte Berechnung über eine Funktion, dafür kann man so deutlich kompliziertere Berechnungen näherungsweise berechnen, ohne komplizierte Mathematik verwenden zu müssen.
+
+Anzumerken ist auch, dass alle Raketenparameter gesammelt in einem Dictionary im Parameter ```params``` übergeben werden. Das macht den Code übersichtlicher.
 
 #### ```plot_results(self, time_points, height_points, velocity_points, params)```
-Erstellt die Visualisierungen der Simulationsergebnisse.
+Erstellt die Visualisierungen der Simulationsergebnisse. Dafür verwende ich die library matplotlib. Damit die berechneten Werte einfach dargestellt werden können, müssen die Listen mit den berechneten Werten erst in ein numpy-Array umgewandelt werden (passiert ganz am Anfang der Methode).
 
-## 4. Unterstützte Treibstoffe
+Die Diagramme werden dann mit ```plot``` erstellt: Hier werden die x-Werte (time_arr) und die y-Werte (hight_arr bzw. velocity_arr) wie in einem Koordinatensystem eingezeichnet. Der Rest der Methode dient nur dafür, dass die Grafiken etwas hübscher aussehen. 
 
-Das Programm unterstützt drei gängige Raketentreibstoffe:
+Die letzte Zeile ```self.canvas.draw()``` sorgt dafür, dass die Grafiken dargestellt werden.
 
-| Treibstoff | Dichte (kg/m³) | Spezifischer Impuls (s) |
-|------------|----------------|-------------------------|
-| LH2/LOX    | 350           | 450                     |
-| Methane/LOX| 900           | 370                     |
-| Kerosene/LOX| 1000         | 340                     |
+## Mathamatische Grundlagen
 
-## 5. Berechnete Parameter
+Zur Berechnung der Raketenflüge verwende ich die sogenannten **Rocket-Equation** bzw. ihre Teilschritte. 
 
-### 5.1 Grundlegende Parameter
-- **Ausstoßgeschwindigkeit (ve):** `ve = Isp × g₀`
+![image](https://github.com/user-attachments/assets/fea21a9e-bc46-4db6-94af-77fbff286171)
+
+
+Berechnet werden folgende Parameter über ihre jeweiligen Gleichungen
+**Ausstoßgeschwindigkeit (ve):** `ve = Isp × g₀`
 - **Massenstromrate:** `ṁ = F / ve`
 - **Treibstoffmasse:** `mp = ṁ × tb`
 
