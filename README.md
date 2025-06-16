@@ -61,11 +61,11 @@ In der Funktion ```__init__``` wird ein weiterer Parameter übergeben: ```root``
 ### Einrichten der GUI
 
 Die Funktion ```setup_gui()``` definiert nacheinander die GUI-Elemente des Programms. Ich beginne mit einem Hauptrahmen (ttk.Frame), in den ich anschließend einen oberen und einen unteren Rahmen einfüge. Dadurch teile ich die Benutzeroberfläche in einen oberen und unteren Teil auf. Anschließend wird im oberen Rahmen noch eine linke und rechte Spalte (wieder als Frame) eingefügt. Dmait ist das generelle Layout der Oberfläche festgelegt.
-===========================
+
 |Oben Links | Oben Rechts |
-===========================
+|-----------|-------------|
 | Unten                   |
-===========================
+
 
 
 #### `__init__(self, root)`
