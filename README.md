@@ -95,28 +95,21 @@ Zur Berechnung der Raketenflüge verwende ich die sogenannten **Rocket-Equation*
 
 ![image](https://github.com/user-attachments/assets/fea21a9e-bc46-4db6-94af-77fbff286171)
 
+Δv ist die Geschwindigkeitsänderung der Rakete, ve ist die Geschwindigkeit der ausgestoßenen Gase (also die Geschwindigkeit, mit der die verbrannte Treibstoffmasse hinten an der Raketendüse hinausgeschossen wird), m0 ist die Anfangsmasse der Rakete, mf ist die Masse des Treibstoffs.
 
 Berechnet werden folgende Parameter über ihre jeweiligen Gleichungen
-**Ausstoßgeschwindigkeit (ve):** `ve = Isp × g₀`
-- **Massenstromrate:** `ṁ = F / ve`
-- **Treibstoffmasse:** `mp = ṁ × tb`
+- **Ausstoßgeschwindigkeit (ve):** `ve = Isp × g₀`
+- **Massenstromrate:** `ṁ = F / ve` (Massenstromrate oder Massefluss: Wieviel kg fließen pro Sekunde durch das Triebwerk der Rakete)
+- **Treibstoffmasse:** `mp = ṁ × tb` 
 
-### 5.2 Massenverteilung
-- Trockenmasse (Struktur)
-- Nutzlastmasse 
-- Treibstoffmasse
-- Gesamtstartmasse
-- Prozentuale Verteilung
-
-### 5.3 Leistungsparameter
+Berechnete Leistungsparameter (die geben einen guten Überblick über die allgemeine Leistungsfähigkeit einer Rakete)
 - **Delta-V (Tsiolkovsky-Gleichung):** `Δv = ve × ln(m₀/mf)`
 - **Schub-zu-Gewicht-Verhältnis:** `TWR = F/(m × g₀)`
 - **Tankvolumen:** `V = mp/ρ`
 
-## 6. Physikalische Modelle
+## Physikalisches Modell
 
-### 6.1 Flug-Simulation
-Die Simulation berücksichtigt folgende physikalische Effekte:
+Das Raketenflug wird über eine sehr einfaches Modell berechnet, das die Schwerkraft und eine grobe Schätzung des Luftwiderstandes beinhaltet. Die Simulation erfolgt in zwei Phasen:
 
 #### Phase 1: Antriebsphase (0 ≤ t ≤ Brenndauer)
 - **Schubkraft:** Konstant basierend auf Eingabeparametern
@@ -128,128 +121,32 @@ Die Simulation berücksichtigt folgende physikalische Effekte:
 - Nur Gewichtskraft und Luftwiderstand
 - Keine Schubkraft mehr vorhanden
 
-### 6.2 Vereinfachungen
-- Konstante Erdbeschleunigung (9,81 m/s²)
+### Vereinfachungen
+- Die Erdbeschleunigung wird als konstant angenommen (9,81 m/s²). In Wirklichkeit würde sie mit zunehmender Höhe der Rakete geringer werden. 
 - Vereinfachtes Luftwiderstandsmodell
-- Konstante Querschnittsfläche
-- Eindimensionale Bewegung (nur vertikal)
+- Der Flug wird nur als vertikaler Flug berechnet, nicht als Kurve oder Orbitalmaneuver. (Streng genommen wird die erste nicht einmal als Kugel simuliert, sondern als flache Ebene)
 
-### 6.3 Numerische Integration
-- **Zeitschritt:** dt = 0.1 s
-- **Methode:** Euler-Verfahren
-- **Abbruchbedingungen:** 
+### Numerische Berechnung
+Die Simulation wird in kleinen Zeitabschnitten von 0.1s berechnet. Dazu verwende ich das sogenannte Euler-Verfahren. Ich berechne die aktuelle Beschleunigung, indem ich die aktuelle Kraft aus Gewicht und Luftwiderstand durch die aktuelle Masse der Rakete teile. Anschließend addiere ich die Beschleunigung (multipliziert mit der kleinen Zeiteinheit von 0.1s) zur aktuellen Geschwindigkeit. Die Höhe berechne ich auf dieselbe Art, indem ich die Geschwindigkeit (multipliziert mit der kleinen Zeiteinheit von 0.1s) zur Höhe addiere.
+
+Hier findet eine Näherung statt: Ich tue so, als ob in den 0.1s die Bewegung geradlinig verlaufen würde und sich die Geschwindigkeit nicht ändern würde. Das ist in Wirklichkeit natürlich anders. 
+
+**Abbruchbedingungen:** 
   - Rakete erreicht Boden (h ≤ 0)
   - Maximale Simulationszeit überschritten
 
-## 7. GUI-Komponenten
+## Mögliche Erweiterungen
 
-### 7.1 Eingabebereich
-- **Treibstofftyp:** Dropdown-Menü mit automatischer Isp-Aktualisierung
-- **Schub:** Eingabe in kN
-- **Spezifischer Impuls:** Eingabe in Sekunden
-- **Brenndauer:** Eingabe in Sekunden
-- **Trockenmasse:** Eingabe in kg
-- **Nutzlastmasse:** Eingabe in kg
-
-### 7.2 Ergebnisanzeige
-Scrollbares Textfeld mit formatierter Ausgabe:
-- Ausstoßgeschwindigkeit
-- Detaillierte Massenverteilung
-- Leistungsparameter
-- Geschätzte Tankgröße
-
-### 7.3 Visualisierung
-Zwei nebeneinanderliegende Diagramme:
-- **Links:** Flughöhe über Zeit (km vs. s)
-- **Rechts:** Geschwindigkeit über Zeit (m/s vs. s)
-
-Beide Diagramme zeigen:
-- Markierung des Brennschluss-Zeitpunkts
-- Hervorhebung der Maximalwerte
-- Gitterlinien für bessere Lesbarkeit
-
-## 8. Beispielrechnung
-
-### 8.1 Standardkonfiguration
-- **Treibstoff:** Kerosene/LOX
-- **Schub:** 7.500 kN
-- **Spezifischer Impuls:** 340 s
-- **Brenndauer:** 150 s
-- **Trockenmasse:** 22.200 kg
-- **Nutzlast:** 22.800 kg
-
-### 8.2 Typische Ergebnisse
-- **Treibstoffmasse:** ~345.000 kg
-- **Delta-V:** ~8.000-9.000 m/s
-- **Maximale Höhe:** 150-200 km
-- **Maximale Geschwindigkeit:** 2.500-3.000 m/s
-
-## 9. Mögliche Erweiterungen
-
-### 9.1 Physikalische Verbesserungen
+### Physikalische Verbesserungen
 - Mehrstufige Raketen
-- Variable Erdbeschleunigung
+- Realistische Erdbeschleunigung und Raketenstart von anderen Planeten aus
 - Erdrotation berücksichtigen
 - Orbitalemechanik für Satellitenbahnen
 - Genaueres Atmosphärenmodell
 
-### 9.2 GUI-Erweiterungen
-- 3D-Flugbahnvisualisierung
+### GUI-Erweiterungen
+- Flugbahnvisualisierung
 - Animierte Simulation
-- Export-Funktionen für Daten
-- Vergleich verschiedener Konfigurationen
-- Kostenschätzung
-
-### 9.3 Technische Verbesserungen
-- Konfigurationsdateien für Treibstoffe
-- Datenbankanbindung für Raketendaten
-- Web-basierte Version
-- Genauere numerische Verfahren
-
-## 10. Bekannte Limitationen
-
-### 10.1 Physikalische Vereinfachungen
-- Eindimensionale Bewegung (nur vertikal)
-- Konstante Atmosphäreneigenschaften
-- Vereinfachter Luftwiderstand
-- Keine Berücksichtigung von Windeinflüssen
-
-### 10.2 Technische Limitationen
-- Euler-Verfahren ist für große Zeitschritte ungenau
-- Keine Validierung gegen reale Flugdaten
-- Luftwiderstandskoeffizient ist geschätzt
-- Keine Berücksichtigung von Strukturbelastungen
-
-## 11. Validierung und Tests
-
-### 11.1 Plausibilitätsprüfung
-- Delta-V-Werte entsprechen typischen Orbital-Raketen
-- Flughöhen sind realistisch für die gegebenen Parameter
-- Massenverteilung entspricht modernen Raketen
-
-### 11.2 Vergleich mit Referenzdaten
-Das Programm sollte gegen bekannte Raketendaten validiert werden:
-- Saturn V
-- Falcon 9
-- Atlas V
-
-## 12. Fazit
-
-Der Raketen-Simulator bietet eine solide Grundlage für die Berechnung und Simulation von Raketenflügen. Trotz der vereinfachten physikalischen Modelle liefert er realistische Ergebnisse für erste Abschätzungen und Bildungszwecke.
-
-Die modulare Struktur ermöglicht einfache Erweiterungen, und die benutzerfreundliche GUI macht das Programm auch für Laien zugänglich. Für professionelle Anwendungen sollten jedoch genauere physikalische Modelle und Validierungen implementiert werden.
-
-### 12.1 Stärken
-- Einfache Bedienung durch intuitive GUI
-- Solide Grundlagen der Raketenphysik
-- Gute Visualisierung der Ergebnisse
-- Erweiterbare Architektur
-
-### 12.2 Verbesserungspotential
-- Genauere physikalische Modelle
-- Mehrstufige Raketen
-- Validierung gegen reale Daten
-- Performance-Optimierung für große Simulationen
 
 ---
 
