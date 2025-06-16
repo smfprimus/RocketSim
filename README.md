@@ -4,7 +4,7 @@
 **Sprache:** Python 3.x  
 **GUI Framework:** Tkinter mit ttkbootstrap  
 
-## 1. Projektübersicht
+## Projektübersicht
 
 Der Raketen-Simulator ist eine Python-Anwendung zur Berechnung und Simulation von Raketenflügen. Das Programm hat eine grafische Benutzeroberfläche zur Eingabe der Raketenparameter und stellt die Flugeigenschaften durch Diagramme dar.
 
@@ -19,7 +19,7 @@ Der Raketen-Simulator ist eine Python-Anwendung zur Berechnung und Simulation vo
 - Unterstützung verschiedener Treibstofftypen
 - Benutzerfreundliche grafische Oberfläche
 
-## 2. Technische Spezifikationen
+## Technische Spezifikationen
 
 ### Systemanforderungen
 - **Programmiersprache:** Python
