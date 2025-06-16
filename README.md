@@ -91,7 +91,7 @@ Die letzte Zeile ```self.canvas.draw()``` sorgt dafür, dass die Grafiken darges
 
 ## Mathamatische Grundlagen
 
-Zur Berechnung der Raketenflüge verwende ich die sogenannten **Rocket-Equation** bzw. ihre Teilschritte. 
+Zur Berechnung der Raketenflüge verwende ich die sogenannten **Rocket-Equation** bzw. ihre Teilschritte. Die Mathematischen Grundlagen wurden großteils vom **Beginners Guide to Aeronautics** übernommen (https://www1.grc.nasa.gov/beginners-guide-to-aeronautics/ideal-rocket-equation/) 
 
 ![image](https://github.com/user-attachments/assets/fea21a9e-bc46-4db6-94af-77fbff286171)
 
