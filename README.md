@@ -54,12 +54,19 @@ Die erste Methode ist immer ```__init__```. Diese Methode nennt man auch den *Co
 ```python
 def __init__(self, root):
 ```
-Diese Methode wird immer dann ausgeführt, wenn eine neue **Instanz** der Klasse Rocket Simulator erzeugt wird. **Methoden** haben bei den Parametern eine Besonderheit: 
-Als erster Parameter wird immer ```self``` übergeben. Diese Variable enthält die **Instanz** des Objektes. Das funktioniert ganz automatisch.
-In der Funktion ```__init__``` wird ein weiterer Parameter übergeben: ```root```. Dabei handelt es sich um das Tkinter Objekt, das in der ersten Zeile der ```__init__```-Funktion mit der Instanz verbunden wird ( ```self.root = root``` ). Dadurch können alle Parameter der Benutzeroberfläche als Variablen der Instanz bearbeitet werden und müssen nicht mühsam von Funktion zu Funktion weitergegeben werden. Als letztes startet ```__init__``` die grafische Benutzeroberfläche mit der tkinter-Funktion ```setup_gui()```.
+Diese Methode wird immer dann ausgeführt, wenn eine neue **Instanz** der Klasse Rocket Simulator erzeugt wird. **Methoden** haben (im Vergleich zu normalen Funktionen) bei den Parametern eine Besonderheit: Als erster Parameter wird immer ```self``` übergeben. Diese Variable enthält die **Instanz** des Objektes. Das funktioniert ganz automatisch.
 
+In der Funktion ```__init__``` wird ein weiterer Parameter übergeben: ```root```. Dabei handelt es sich um das Tkinter Objekt, das in der ersten Zeile der ```__init__```-Funktion mit der Instanz verbunden wird ( ```self.root = root``` ). Dadurch können alle Parameter der Benutzeroberfläche als Variablen der Instanz bearbeitet werden und müssen nicht mühsam von Funktion zu Funktion weitergegeben werden. Als letztes startet ```__init__``` die grafische Benutzeroberfläche mit der Funktion ```setup_gui()```.
 
-### 3.2 Wichtige Methoden
+### Einrichten der GUI
+
+Die Funktion ```setup_gui()``` definiert nacheinander die GUI-Elemente des Programms. Ich beginne mit einem Hauptrahmen (ttk.Frame), in den ich anschließend einen oberen und einen unteren Rahmen einfüge. Dadurch teile ich die Benutzeroberfläche in einen oberen und unteren Teil auf. Anschließend wird im oberen Rahmen noch eine linke und rechte Spalte (wieder als Frame) eingefügt. Dmait ist das generelle Layout der Oberfläche festgelegt.
+===========================
+|Oben Links | Oben Rechts |
+===========================
+| Unten                   |
+===========================
+
 
 #### `__init__(self, root)`
 Initialisiert die Anwendung und setzt Grundkonstanten.
