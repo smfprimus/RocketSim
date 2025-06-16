@@ -62,28 +62,25 @@ In der Funktion ```__init__``` wird ein weiterer Parameter übergeben: ```root``
 
 Die Funktion ```setup_gui()``` definiert nacheinander die GUI-Elemente des Programms. Ich beginne mit einem Hauptrahmen (ttk.Frame), in den ich anschließend einen oberen und einen unteren Rahmen einfüge. Dadurch teile ich die Benutzeroberfläche in einen oberen und unteren Teil auf. Anschließend wird im oberen Rahmen noch eine linke und rechte Spalte (wieder als Frame) eingefügt. Dmait ist das generelle Layout der Oberfläche festgelegt.
 
-|Oben Links | Oben Rechts |
-|-----------|-------------|
-| Unten                   |
+Hier eine Darstellung der Hierarchie meiner Frames:
+```
+main_frame -> top_frame (oben)     -> input_frame (links)
+                                   -> results_frame (rechts)
+           -> plots_frame (unten)
+```               
+Die restliche Benutzeroberfläche baue ich aus Labels (für statischen Text), Entries (für Eingabenfelder) und Buttons auf. Dabei verwende ich die ```.grid``` methode von tkinter, um ein einfaches Layout ohne zusätzliche Frames zu erzeugen.
 
+zum Schluss werden noch die Grafiken im unteren tkinter-Frame vorbereitet (wie das funktioniert, habe ich aus einem Tutorial der matplotlib-Dokumnetation https://matplotlib.org/stable/gallery/user_interfaces/embedding_in_tk_sgskip.html ).
 
+### Weitere wichtige Methoden
 
-#### `__init__(self, root)`
-Initialisiert die Anwendung und setzt Grundkonstanten.
-
-#### `setup_gui(self)`
-Erstellt das komplette GUI-Layout mit:
-- Eingabebereich für Raketenparameter
-- Ergebnisanzeige als Textfeld
-- Matplotlib-Integration für Diagramme
-
-#### `calculate_parameters(self)`
+#### ```calculate_parameters(self)```
 Berechnet alle relevanten Raketenparameter basierend auf Benutzereingaben.
 
-#### `simulate_flight(self, params)`
+#### ```simulate_flight(self, params)```
 Führt die numerische Simulation des Raketenflugs durch.
 
-#### `plot_results(self, time_points, height_points, velocity_points, params)`
+#### ```plot_results(self, time_points, height_points, velocity_points, params)```
 Erstellt die Visualisierungen der Simulationsergebnisse.
 
 ## 4. Unterstützte Treibstoffe
